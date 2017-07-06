@@ -1,5 +1,9 @@
-body {
+html, body {
   margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+}
+
+.floating-button {
+  position: absolute;
+  left: 70%;
+  top: 60vh;
 }

@@ -2,8 +2,7 @@ html, body {
   margin: 0;
 }
 
-.floating-button {
-  position: absolute;
-  left: 70%;
-  top: 60vh;
+.flex-center {
+  display: flex;
+  justify-content: center;
 }

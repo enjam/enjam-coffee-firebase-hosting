@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import {Card, CardHeader, CardActions, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
 import * as firebase from 'firebase';
 import RewardList from './RewardList';
-import Dialog from 'material-ui/Dialog';
-import Pattern from './Pattern';
+import Dispenser from './Dispenser';
+import Snackbar from 'material-ui/Snackbar';
 
 class CoffeeLoggedIn extends Component {
   constructor(){
@@ -15,10 +14,9 @@ class CoffeeLoggedIn extends Component {
       points: false,
       dispenser: {
         state: 'ready',
-        user: null
+        user: null,
       },
-      modalOpen: true,
-      pattern: [0,0,0,0,0,0,0,0,0]
+      infoText: null,
     };
   }
 
@@ -40,6 +38,12 @@ class CoffeeLoggedIn extends Component {
         dispenser: snap.val()
       });
     });
+    this.rootRef.child('info').child(this.uid).on('value', snap => {
+      this.setState({
+        ...this.state,
+        infoText: snap.val(),
+      });
+    });
   }
 
   componentWillUnmount(){
@@ -49,50 +53,19 @@ class CoffeeLoggedIn extends Component {
   claimCoffee(){
     this.rootRef.child('dispenser').set({
       user: this.uid,
-      state: 'pattern'
+      state: 'requesting_access'
     }).then(() => {
-      this.setState({
-        ...this.state,
-        modalOpen: true
-      })
+      //
     }).catch(() => {
       console.log('Nooo');
     });
   }
 
-  okModal(){
-    const pattern = this.state.pattern.map(bool => bool ? 1 : 0).join('');
-    this.rootRef.child('dispenser/userpattern').set(pattern);
-    this.closeModal();
-  }
-
-  cancelModal(){
-    this.rootRef.child('dispenser').set({
-      state: 'ready'
-    });
-    this.closeModal();
-  }
-
-  closeModal(){
-    this.setState({
-      ...this.state,
-      modalOpen: false
-    });
-  }
-
-  updatePattern(i, val){
-    this.setState({
-      ...this.state,
-      pattern: [
-        ...this.state.pattern.slice(0, i),
-        val,
-        ...this.state.pattern.slice(i + 1)
-      ]
-    });
+  handleSnackbarRequestClose(){
+    this.rootRef.child('info').child(this.uid).remove();
   }
 
   render() {
-
     let canClaimCoffee = true;
     let primaryText = "indløs kaffe (10 point)";
 
@@ -107,18 +80,6 @@ class CoffeeLoggedIn extends Component {
       primaryText = "Kaffemaskinen er i brug :/";
     }
 
-    const actions = [
-      <FlatButton
-        label="Annuller"
-        onClick={this.cancelModal.bind(this)}
-      />,
-      <FlatButton
-        label="Giv mig kaffen"
-        primary={true}
-        onClick={this.okModal.bind(this)}
-      />
-    ];
-
     return (
       <Card zDepth={0}>
         <CardHeader
@@ -132,19 +93,18 @@ class CoffeeLoggedIn extends Component {
             secondary={true}
             disabled={!canClaimCoffee}
             onClick={this.claimCoffee.bind(this)}
-        />
+          />
         </CardActions>
         <CardText>
           <RewardList user={this.props.user}/>
         </CardText>
-        <Dialog
-          title="Angiv mønstret på kaffemaskinen"
-          actions={actions}
-          modal={true}
-          open={this.state.modalOpen}
-        >
-          <Pattern pattern={this.state.pattern} onChange={this.updatePattern.bind(this)}/>
-        </Dialog>
+        <Dispenser access={isClaimingCoffee} state={this.state.dispenser.state}/>
+        <Snackbar
+          open={this.state.infoText ? true : false}
+          message={this.state.infoText || ''}
+          autoHideDuration={4000}
+          onRequestClose={this.handleSnackbarRequestClose.bind(this)}
+        />
       </Card>
     );
   }

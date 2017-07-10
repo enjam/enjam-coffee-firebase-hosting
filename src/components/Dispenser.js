@@ -51,7 +51,7 @@ class Dispenser extends Component {
   beforeCloseModal(){
     this.setState({
       ...this.state,
-      pattern: Array(9).fill(false)
+      pattern: emptyPattern,
     });
   }
 

@@ -6,3 +6,17 @@ html, body {
   display: flex;
   justify-content: center;
 }
+
+.margin-body {
+  margin: 16px;
+}
+
+.fb-post-container-parent .fb-post {
+  display: flex !important;
+  justify-content: center;
+}
+
+.fb-post-container-parent > div {
+  width: calc(100vw - 32px);
+  /*display: inline-block;*/
+}

@@ -32,7 +32,7 @@ class RewardList extends Component {
     rootRef.child('pageLikes').child(uid).on('value', snap => {
       this.setState({
         ...this.state,
-        pageLike: snap.val()
+        pageLike: snap.val() || false
       });
     });
 

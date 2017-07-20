@@ -15,7 +15,7 @@ class Login extends Component {
 
   render() {
     return (
-      <div style={{display:'flex', justifyContent: 'center'}}>
+      <div className="flex-center margin-body">
         <RaisedButton style={{}} label="login" onClick={this.signIn}/>
       </div>
     );

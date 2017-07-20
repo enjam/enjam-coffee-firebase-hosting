@@ -87,9 +87,6 @@ class Dispenser extends Component {
       />
     );
 
-    let content;
-    let title;
-
     switch (this.props.state){
       case 'ready':
       case 'requesting_access':

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {Card, CardHeader, CardActions, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
 import * as firebase from 'firebase';
 import RewardList from './RewardList';
 import Dispenser from './Dispenser';

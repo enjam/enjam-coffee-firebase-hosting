@@ -3,7 +3,6 @@ import {Page} from 'react-facebook';
 
 class Enjam extends Component {
   render() {
-    console.log(window.screen.width);
     return (
       <div className="flex-center margin-body">
         <Page

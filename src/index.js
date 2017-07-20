@@ -6,6 +6,7 @@ import {unregister as unregisterServiceWorker} from './registerServiceWorker';
 import * as firebase from 'firebase';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import muiTheme from './muiTheme';
 import FacebookProvider from 'react-facebook';
 
 injectTapEventPlugin();
@@ -21,7 +22,7 @@ firebase.initializeApp({
 window.firebase = firebase;
 
 ReactDOM.render(
-  <MuiThemeProvider>
+  <MuiThemeProvider muiTheme={muiTheme}>
     <FacebookProvider appId="1311032879006324" version="v2.10">
       <App/>
     </FacebookProvider>

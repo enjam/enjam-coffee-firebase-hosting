@@ -28,6 +28,15 @@ class Dispenser extends Component {
   componentWillUnmount(){
     this.rootRef.off();
   }
+  
+  componentWillReceiveProps(newProps){
+    if (!this.props.access && newProps.access){
+      this.setState({
+        ...this.state, 
+        pattern: emptyPattern,
+      });
+    }
+  }
 
   okModal(){
     const pattern = this.state.pattern.map(bool => bool ? 1 : 0).join('');
@@ -82,7 +91,7 @@ class Dispenser extends Component {
     const submitButton = (
       <FlatButton
         label="Kaffe!"
-        primary={true}
+        secondary={true}
         onClick={this.okModal.bind(this)}
       />
     );

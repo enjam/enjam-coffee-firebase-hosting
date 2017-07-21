@@ -80,7 +80,7 @@ class CoffeeLoggedIn extends Component {
     }
 
     return (
-      <Card zDepth={0} style={{backgroundColor: 'none'}}>
+      <Card zDepth={0} style={{backgroundColor: 'none', width: '100%', maxWidth: '800px'}}>
         <CardHeader
           title={this.props.user.displayName}
           avatar={this.props.user.photoURL}

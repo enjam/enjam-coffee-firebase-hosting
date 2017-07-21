@@ -18,11 +18,18 @@ class Coffee extends Component {
   }
 
   render() {
+    let content;    
     if (!this.state.user) {
-      return <Login/>;
+      content = (<Login/>);
     } else {
-      return <CoffeeLoggedIn user={this.state.user}/>;
+      content = (<CoffeeLoggedIn user={this.state.user}/>);
     }
+    return (
+      <div className="flex-center">
+        {content}
+      </div>
+    );
+    
   }
 }
 

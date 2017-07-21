@@ -15,8 +15,8 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="flex-center margin-body">
-        <RaisedButton style={{}} label="login" onClick={this.signIn}/>
+      <div className="margin-body">
+        <RaisedButton label="login" onClick={this.signIn}/>
       </div>
     );
   }

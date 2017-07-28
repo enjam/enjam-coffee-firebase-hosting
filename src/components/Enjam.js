@@ -1,28 +1,51 @@
 import React, { Component } from 'react';
 import {Page} from 'react-facebook';
 import Paper from 'material-ui/Paper';
+import {debounce, clamp} from 'lodash';
+
+function calculateWidth(){
+  return clamp(window.innerWidth - 32, 300, 500);
+}
 
 class Enjam extends Component {
+  constructor(){
+    super();
+    this.state = {
+      width: calculateWidth(),
+    };
+  }
+
+  componentDidMount(){
+    this.updateWidth = debounce(() => {
+      this.setState({
+        width: calculateWidth(),
+      });
+    }, 500);
+    window.addEventListener("resize", this.updateWidth);
+  }
+
+  componentWillUnmount(){
+    window.removeEventListener("resize", this.updateWidth);
+    this.updateWidth.cancel();
+  }
+
   render() {
     return (
       <div className="flex-center margin-body flex-column">
         <Page
           href="https://www.facebook.com/enjam.sdu/"
-          tabs="none" 
-          width={window.innerWidth - 32}
+          tabs="none"
+          width={this.state.width}
         />
         <br/>
         <Paper className="page" zDepth={0} style={{backgroundColor: 'none', maxWidth: '500px'}}>
-          Enjam arrangerer ingeniør-jams for studerende på SDU. 
-          Idéen er at skabe et kreativt miljø, der sætter de 
-          studerendes fagligheder og interesser i spil på tværs af uddannelserne.
+          Enjam organizes engineering-jams for students at SDU.
+          We hope to help the students explore what they can do together across engineering studies.
           <br/><br/>
-          Hver jam tager afsæt i et tema med udfordringer, 
-          der er relevante for en række ingeniørudannelser. 
-          Deltagerne finder sammen i mindre grupper og har weekenden til at lave et produkt.
+          Every jam is based on a theme with challenges that should be relevant to most engineering students.
+          The students find together in smaller groups and make a product.
           <br/><br/>
-          Deltagerne skulle gerne tage hjem med inspiration, 
-          eventuelle præmier og et større netværk.
+          Hopefully the weekend ends with the students feeling more empowered and connected to other students at TEK.
         </Paper>
         <br/><br/>
       </div>

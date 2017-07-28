@@ -26,7 +26,8 @@ class RewardList extends Component {
   }
 
   componentDidMount(){
-    const rootRef = firebase.database().ref();
+    this.rootRef = firebase.database().ref();
+    const rootRef = this.rootRef;
     const uid = this.props.user.providerData[0].uid;
 
     rootRef.child('pageLikes').child(uid).on('value', snap => {
@@ -67,32 +68,33 @@ class RewardList extends Component {
       <List>
         <Divider/>
         <RewardItem
-          title="Like enjams facebookside"
-          subtitle="10 point"
+          title="Like enjams facebook page"
+          subtitle="10 coins"
           checked={this.state.pageLike}
         />
         <RewardItem
-          title="Like opslag fra enjam"
+          title="Like post from enjam"
           subtitle={
-            "Du har liket " + this.state.postLikeCount +
-            " opslag, " + (this.state.postLikeCount * 5) + " point"
+            "You liked " + this.state.postLikeCount +
+            " posts, " + (this.state.postLikeCount * 5) + " coins"
           }
           checked={this.state.postLikeCount > 0}
         />
         <RewardItem
-          title="Kommenter opslag fra enjam"
+          title="Comment post from enjam"
           subtitle={
-            "Du har kommenteret " + this.state.postCommentCount +
-            " opslag, " + (this.state.postCommentCount * 5) + " point"
+            "You commented " + this.state.postCommentCount +
+            " posts, " + (this.state.postCommentCount * 5) + " coins"
           }
           checked={this.state.postCommentCount > 0}
         />
         <RewardItem
-          title="Drik 5 kopper kaffe"
+          title="Claim 5 cups of coffee"
           subtitle={
-            "10 point" + (this.state.dispenseCount >= 5 ?
-            (', du har drukket ' + this.state.dispenseCount + ' kopper') :
-            (', du mangler ' + (5 - this.state.dispenseCount ) + ' kopper'))
+            "10 coins, " + (this.state.dispenseCount >= 5 ?
+              ('you claimed ' + this.state.dispenseCount + ' cups') :
+              ('you need to claim ' + (5 - this.state.dispenseCount) + ' more')
+            )
           }
           checked={this.state.dispenseCount >= 5}
         />

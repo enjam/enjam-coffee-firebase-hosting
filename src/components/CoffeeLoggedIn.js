@@ -66,17 +66,17 @@ class CoffeeLoggedIn extends Component {
 
   render() {
     let canClaimCoffee = true;
-    let primaryText = "indløs kaffe (10 point)";
+    let primaryText = "claim coffee (10 coins)";
 
     const dispenserBusy = this.state.dispenser.state !== 'ready';
     const isClaimingCoffee = this.state.dispenser.user === this.uid;
 
     if (this.state.points < 10){
       canClaimCoffee = false;
-      primaryText = "Optjen 10 point til kaffe";
+      primaryText = "get 10 coffee coins";
     } else if (dispenserBusy && !isClaimingCoffee){
       canClaimCoffee = false;
-      primaryText = "Kaffemaskinen er i brug :/";
+      primaryText = "the coffee machine is in use";
     }
 
     return (
@@ -84,7 +84,7 @@ class CoffeeLoggedIn extends Component {
         <CardHeader
           title={this.props.user.displayName}
           avatar={this.props.user.photoURL}
-          subtitle={this.state.points === false ? '' : (this.state.points || '0') + ' kaffe point!'}
+          subtitle={this.state.points === false ? '' : (this.state.points || '0') + ' coffee coins!'}
         />
         <CardActions className="flex-center">
           <RaisedButton
@@ -97,6 +97,14 @@ class CoffeeLoggedIn extends Component {
         <CardText>
           <RewardList user={this.props.user}/>
         </CardText>
+        <div className="flex-center">
+          <RaisedButton
+            label="logout"
+            onClick={() => firebase.auth().signOut()}
+            secondary={true}
+          />
+        </div>
+        <br/>
         <Dispenser access={isClaimingCoffee} state={this.state.dispenser.state}/>
         <Snackbar
           open={this.state.infoText ? true : false}

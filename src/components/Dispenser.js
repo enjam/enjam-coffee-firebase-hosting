@@ -28,11 +28,11 @@ class Dispenser extends Component {
   componentWillUnmount(){
     this.rootRef.off();
   }
-  
+
   componentWillReceiveProps(newProps){
     if (!this.props.access && newProps.access){
       this.setState({
-        ...this.state, 
+        ...this.state,
         pattern: emptyPattern,
       });
     }
@@ -84,13 +84,13 @@ class Dispenser extends Component {
 
     const cancelButton = (
       <FlatButton
-        label="Annuller"
+        label="Cancel"
         onClick={this.cancelModal.bind(this)}
       />
     );
     const submitButton = (
       <FlatButton
-        label="Kaffe!"
+        label="Coffee!"
         secondary={true}
         onClick={this.okModal.bind(this)}
       />
@@ -101,7 +101,7 @@ class Dispenser extends Component {
       case 'requesting_access':
         return (
           <Dialog
-            title="Forbinder til kaffemaskinen.."
+            title="Connecting to the coffee machine.."
             actions={cancelButton}
             modal={true}
             open={this.props.access}
@@ -112,11 +112,13 @@ class Dispenser extends Component {
       case 'awaiting_userpattern':
         return (
           <Dialog
-            title="Angiv mønstret på kaffemaskinen"
+            title="Can you guess the pattern?"
             actions={[cancelButton, submitButton]}
             modal={true}
             open={this.props.access}
           >
+            <p style={{marginTop: 0}}>hint: you can also see the pattern on the coffee machine</p>
+            <br/>
             <Pattern
               pattern={this.state.pattern}
               onChange={this.updatePattern.bind(this)}
@@ -126,7 +128,7 @@ class Dispenser extends Component {
       case 'validating_userpattern':
         return (
           <Dialog
-            title="Kværner bønner..."
+            title="Roasting coffee beans.."
             modal={true}
             open={this.props.access}
           >
@@ -136,7 +138,7 @@ class Dispenser extends Component {
       case 'dispensing':
         return (
           <Dialog
-            title="Smører cykelhjul.."
+            title="Grinding coffee beans.."
             modal={true}
             open={this.props.access}
           >

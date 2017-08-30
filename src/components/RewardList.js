@@ -19,6 +19,7 @@ class RewardList extends Component {
     super();
     this.state = {
       pageLike: false,
+      interested: false,
       postLikeCount: 0,
       postCommentCount: 0,
       dispenseCount: 0,
@@ -30,10 +31,19 @@ class RewardList extends Component {
     const rootRef = this.rootRef;
     const uid = this.props.user.providerData[0].uid;
 
+    console.log(uid);
+
     rootRef.child('pageLikes').child(uid).on('value', snap => {
       this.setState({
         ...this.state,
         pageLike: snap.val() || false
+      });
+    });
+
+    rootRef.child('interested').child(uid).on('value', snap => {
+      this.setState({
+        ...this.state,
+        interested: snap.val() || false
       });
     });
 
@@ -71,6 +81,11 @@ class RewardList extends Component {
           title="Like enjams facebook page"
           subtitle="10 coins"
           checked={this.state.pageLike}
+        />
+        <RewardItem
+          title="IoT-jam 'Going' or 'Interested'"
+          subtitle="10 coins"
+          checked={this.state.interested}
         />
         <RewardItem
           title="Like post from enjam"

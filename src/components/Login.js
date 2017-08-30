@@ -3,8 +3,16 @@ import * as firebase from 'firebase';
 import RaisedButton from 'material-ui/RaisedButton';
 import Paper from 'material-ui/Paper';
 
-class Login extends Component {
+const MyPaper = props => (
+  <Paper
+    className="page"
+    zDepth={0}
+    style={{backgroundColor:'none', width: '100%', textAlign:'center'}}
+    {...props}
+  />
+);
 
+class Login extends Component {
   signIn() {
     const provider = new firebase.auth.FacebookAuthProvider();
     firebase.auth().signInWithPopup(provider).then(res => {
@@ -17,19 +25,26 @@ class Login extends Component {
   render() {
     return (
       <div className="margin-body flex-column">
-        <Paper className="page" zDepth={0} style={{backgroundColor:'none', width: '100%', textAlign:'center'}}>
-          It's simple: Coffee for likes!
+        <MyPaper>
+          Coffee for likes
           <br/>
-          We made an internet connected instant coffee dispenser.
+          Login to start brewing!
           <br/>
-          Browse the tabs above if you want to know why.
-        </Paper>
-        <p style={{margin: 5}}/>
+        </MyPaper>
+        <p style={{margin: 10}}/>
         <RaisedButton
           label="login with facebook"
           onClick={this.signIn}
           secondary={true}
         />
+        <MyPaper>
+          <br/>
+          We made an IoT coffee dispenser
+          <br/>
+          Browse the tabs to find out why
+          <br/><br/>
+          We use Facebook authentication to be able <br/> to give you coffee for your likes
+        </MyPaper>
       </div>
     );
   }

@@ -31,8 +31,6 @@ class RewardList extends Component {
     const rootRef = this.rootRef;
     const uid = this.props.user.providerData[0].uid;
 
-    console.log(uid);
-
     rootRef.child('pageLikes').child(uid).on('value', snap => {
       this.setState({
         ...this.state,

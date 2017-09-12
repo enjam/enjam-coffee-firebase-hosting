@@ -56,6 +56,64 @@ class DurationListItem extends Component {
   }
 }
 
+class LazyDurationListItem extends Component {
+  constructor(){
+    super();
+    this.state = {
+      avatar: null,
+      name: null,
+      duration: null,
+    };
+  }
+
+  componentDidMount(){
+    const uid = this.props.fbUid;
+    this.rootRef = firebase.database().ref();
+    this.rootRef.child('durations')
+      .child(uid)
+      .on('value', snap => this.setState(prevState => ({
+        ...prevState,
+        duration: snap.val(),
+      })));
+    this.rootRef.child('face2fire')
+      .child(uid)
+      .once('value')
+      .then(snap => {
+        const userRef = this.rootRef
+          .child('users')
+          .child(snap.val());
+        userRef.child('photoURL').once('value')
+          .then(snap => this.setState(prevState => ({
+              ...prevState,
+              avatar: snap.val(),
+          })));
+        userRef.child('displayName').once('value')
+          .then(snap => this.setState(prevState => ({
+              ...prevState,
+              name: snap.val(),
+          })));
+      });
+  }
+
+  componentWillUnmount(){
+    this.rootRef.off();
+  }
+
+  render(){
+    const {number} = this.props;
+    const {avatar, name, duration} = this.state;
+    return (
+      <ListItem
+        rightAvatar={<Avatar>{number}</Avatar>}
+        leftAvatar={<Avatar src={avatar}/>}
+        primaryText={name}
+        secondaryText={duration ? (duration / 1000).toFixed(3) + ' s' : 'Try claiming your coffee'}
+        disabled={true}
+      />
+    );
+  }
+}
+
 class DurationHighscoreList extends Component {
   constructor(){
     super();
@@ -106,6 +164,15 @@ class DurationHighscoreList extends Component {
           Top 3 win prices friday noon.
         </Subheader>
         {highscores}
+        {
+          this.state.highscores.find(entry => entry.fbUid === this.props.uid)
+          ? ''
+          :
+          <div>
+            <br/>
+            <LazyDurationListItem fbUid={this.props.uid} number={'?'}/>
+          </div>
+        }
       </List>
     );
   }

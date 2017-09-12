@@ -100,7 +100,7 @@ class CoffeeLoggedIn extends Component {
           <Divider/>
           <RewardList user={this.props.user}/>
           <Divider/>
-          <DurationHighscoreList />
+          <DurationHighscoreList uid={this.props.user.providerData[0].uid}/>
           <Divider/>
         </CardText>
         <br/>

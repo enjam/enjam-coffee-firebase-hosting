@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import {List, ListItem} from 'material-ui/List';
-import Divider from 'material-ui/Divider';
 import Checkbox from 'material-ui/Checkbox';
+import Subheader from 'material-ui/Subheader';
 
 function RewardItem(props){
   return (
@@ -74,7 +74,7 @@ class RewardList extends Component {
   render() {
     return (
       <List>
-        <Divider/>
+        <Subheader>Ways to earn coffee coins</Subheader>
         <RewardItem
           title="Like enjams facebook page"
           subtitle="10 coins"
@@ -111,7 +111,6 @@ class RewardList extends Component {
           }
           checked={this.state.dispenseCount >= 5}
         />
-        <Divider/>
       </List>
     );
   }

@@ -3,8 +3,10 @@ import {Card, CardHeader, CardActions, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import * as firebase from 'firebase';
 import RewardList from './RewardList';
+import DurationHighscoreList from './DurationHighscoreList';
 import Dispenser from './Dispenser';
 import Snackbar from 'material-ui/Snackbar';
+import Divider from 'material-ui/Divider';
 
 class CoffeeLoggedIn extends Component {
   constructor(){
@@ -95,8 +97,13 @@ class CoffeeLoggedIn extends Component {
           />
         </CardActions>
         <CardText>
+          <Divider/>
           <RewardList user={this.props.user}/>
+          <Divider/>
+          <DurationHighscoreList />
+          <Divider/>
         </CardText>
+        <br/>
         <div className="flex-center">
           <RaisedButton
             label="logout"

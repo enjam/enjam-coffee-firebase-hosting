@@ -94,7 +94,17 @@ class DurationHighscoreList extends Component {
     );
     return (
       <List>
-        <Subheader>Highscores - Pattern submit time</Subheader>
+        <Subheader
+          style={{
+            lineHeight: '20px',
+            paddingTop: '20px',
+            paddingBottom: '20px',
+          }}
+        >
+          How fast can you submit the pattern?
+          <br/>
+          Top 3 win prices friday noon.
+        </Subheader>
         {highscores}
       </List>
     );

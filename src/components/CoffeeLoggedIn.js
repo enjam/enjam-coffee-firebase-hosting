@@ -112,6 +112,7 @@ class CoffeeLoggedIn extends Component {
           />
         </div>
         <br/>
+        <br/>
         <Dispenser access={isClaimingCoffee} state={this.state.dispenser.state}/>
         <Snackbar
           open={this.state.infoText ? true : false}

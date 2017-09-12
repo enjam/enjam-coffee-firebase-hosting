@@ -49,7 +49,7 @@ class DurationListItem extends Component {
         rightAvatar={<Avatar>{number}</Avatar>}
         leftAvatar={<Avatar src={avatar}/>}
         primaryText={name}
-        secondaryText={duration ? (duration / 1000) + ' s' : ''}
+        secondaryText={duration ? (duration / 1000).toFixed(3) + ' s' : ''}
         disabled={true}
       />
     );

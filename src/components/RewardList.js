@@ -32,38 +32,38 @@ class RewardList extends Component {
     const uid = this.props.user.providerData[0].uid;
 
     rootRef.child('pageLikes').child(uid).on('value', snap => {
-      this.setState({
-        ...this.state,
+      this.setState(prevState => ({
+        ...prevState,
         pageLike: snap.val() || false
-      });
+      }));
     });
 
     rootRef.child('interested').child(uid).on('value', snap => {
-      this.setState({
-        ...this.state,
+      this.setState(prevState => ({
+        ...prevState,
         interested: snap.val() || false
-      });
+      }));
     });
 
     rootRef.child('postLikeCount').child(uid).on('value', snap => {
-      this.setState({
-        ...this.state,
+      this.setState(prevState => ({
+        ...prevState,
         postLikeCount: snap.val() || 0,
-      });
+      }));
     });
 
     rootRef.child('postCommentCount').child(uid).on('value', snap => {
-      this.setState({
-        ...this.state,
+      this.setState(prevState => ({
+        ...prevState,
         postCommentCount: snap.val() || 0,
-      });
+      }));
     });
 
     rootRef.child('dispenseCount').child(uid).on('value', snap => {
-      this.setState({
-        ...this.state,
+      this.setState(prevState => ({
+        ...prevState,
         dispenseCount: snap.val() || 0,
-      });
+      }));
     });
   }
 

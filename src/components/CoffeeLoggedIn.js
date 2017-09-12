@@ -7,6 +7,7 @@ import DurationHighscoreList from './DurationHighscoreList';
 import Dispenser from './Dispenser';
 import Snackbar from 'material-ui/Snackbar';
 import Divider from 'material-ui/Divider';
+import Avatar from 'material-ui/Avatar';
 
 class CoffeeLoggedIn extends Component {
   constructor(){
@@ -84,18 +85,24 @@ class CoffeeLoggedIn extends Component {
     return (
       <Card zDepth={0} style={{backgroundColor: 'none', width: '100%', maxWidth: '800px'}}>
         <CardHeader
-          title={this.props.user.displayName}
-          avatar={this.props.user.photoURL}
-          subtitle={this.state.points === false ? '' : (this.state.points || '0') + ' coffee coins!'}
-        />
-        <CardActions className="flex-center">
+          className="flex-center flex-column flex-margin"
+          style={{textAlign:'center'}}
+        >
+          <Avatar size={60} src={this.props.user.photoURL} />
+          <div>
+            {this.props.user.displayName}
+            <br/>
+            <span style={{fontSize: '14px', color: 'rgba(0,0,0,0.54)'}}>
+              {(this.state.points || '0') + ' coffee coins!'}
+            </span>
+          </div>
           <RaisedButton
             label={primaryText}
             secondary={true}
             disabled={!canClaimCoffee}
             onClick={this.claimCoffee.bind(this)}
           />
-        </CardActions>
+        </CardHeader>
         <CardText>
           <Divider/>
           <RewardList user={this.props.user}/>

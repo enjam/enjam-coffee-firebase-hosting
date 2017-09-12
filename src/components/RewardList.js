@@ -77,7 +77,7 @@ class RewardList extends Component {
         <Subheader>Ways to earn coffee coins</Subheader>
         <RewardItem
           title="Like enjams facebook page"
-          subtitle="10 coins"
+          subtitle={"10 coins" + (this.state.pageLike ? '' : " - you may have to 'relike'")}
           checked={this.state.pageLike}
         />
         <RewardItem

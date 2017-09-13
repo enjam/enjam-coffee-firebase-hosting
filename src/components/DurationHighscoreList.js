@@ -47,7 +47,7 @@ class DurationListItem extends Component {
     return (
       <ListItem
         rightAvatar={<Avatar>{number}</Avatar>}
-        leftAvatar={<Avatar src={avatar}/>}
+        leftAvatar={<Avatar className="avatar" src={avatar}/>}
         primaryText={name}
         secondaryText={duration ? (duration / 1000).toFixed(3) + ' s' : ''}
         disabled={true}
@@ -105,7 +105,7 @@ class LazyDurationListItem extends Component {
     return (
       <ListItem
         rightAvatar={<Avatar>{number}</Avatar>}
-        leftAvatar={<Avatar src={avatar}/>}
+        leftAvatar={<Avatar className="avatar" src={avatar}/>}
         primaryText={name}
         secondaryText={duration ? (duration / 1000).toFixed(3) + ' s' : 'Try claiming your coffee'}
         disabled={true}

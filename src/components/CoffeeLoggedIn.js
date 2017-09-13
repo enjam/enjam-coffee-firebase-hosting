@@ -88,7 +88,11 @@ class CoffeeLoggedIn extends Component {
           className="flex-center flex-column flex-margin"
           style={{textAlign:'center'}}
         >
-          <Avatar size={60} src={this.props.user.photoURL} />
+          <Avatar
+            size={60}
+            src={this.props.user.photoURL}
+            className="avatar"
+          />
           <div>
             {this.props.user.displayName}
             <br/>

@@ -134,7 +134,7 @@ class DurationHighscoreList extends Component {
         if (snap.val()){
           highscores = Object.entries(snap.val())
             .map(entry => ({fbUid: entry[0], duration: entry[1]}))
-            .sort((a, b) => a.duration > b.duration);
+            .sort((a, b) => a.duration - b.duration);
         }
         this.setState({
           highscores,

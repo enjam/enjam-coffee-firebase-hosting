@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import {Card, CardHeader, CardActions, CardText} from 'material-ui/Card';
+import {Card, CardHeader, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import * as firebase from 'firebase';
 import RewardList from './RewardList';
 import DurationHighscoreList from './DurationHighscoreList';
+import LightButtons from './LightButtons';
 import Dispenser from './Dispenser';
 import Snackbar from 'material-ui/Snackbar';
 import Divider from 'material-ui/Divider';
@@ -63,6 +64,15 @@ class CoffeeLoggedIn extends Component {
     });
   }
 
+  addLights = rgb => {
+    this.rootRef.child('addLights').push({
+      timestamp: firebase.database.ServerValue.TIMESTAMP,
+      r: rgb[0],
+      g: rgb[1],
+      b: rgb[2],
+    });
+  }
+
   handleSnackbarRequestClose(){
     this.rootRef.child('info').child(this.uid).remove();
   }
@@ -110,6 +120,8 @@ class CoffeeLoggedIn extends Component {
         <CardText>
           <Divider/>
           <RewardList user={this.props.user}/>
+          <Divider/>
+          <LightButtons onClickCallback={this.addLights}/>
           <Divider/>
           <DurationHighscoreList uid={this.props.user.providerData[0].uid}/>
           <Divider/>

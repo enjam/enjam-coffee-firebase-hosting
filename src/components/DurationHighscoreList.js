@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
 import {List, ListItem} from 'material-ui/List';
-import Divider from 'material-ui/Divider';
-import Checkbox from 'material-ui/Checkbox';
 import Avatar from 'material-ui/Avatar';
 import Subheader from 'material-ui/Subheader';
 
